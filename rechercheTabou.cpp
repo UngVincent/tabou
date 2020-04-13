@@ -11,6 +11,9 @@ rechercheTabou::rechercheTabou(int nbiter,int dt,int nv, char* nom_fichier)
   iter_courante   = 0;
   duree_tabou     = dt;
   taille_solution = nv;
+  alpha = 1;
+  constant_FTD = 10;
+
   constuction_distance(taille_solution, nom_fichier);
   courant         = new solution(nv);
   courant->evaluer(les_distances);
@@ -240,7 +243,9 @@ solution* rechercheTabou::optimiser()
       
 
       // mise � jour de la liste tabou
-      list_tabou[best_i][best_j] = iter_courante+duree_tabou;
+      // list_tabou[best_i][best_j] = iter_courante+duree_tabou;
+      list_tabou[best_i][best_j] = iter_courante+(constant_FTD+alpha*list_tabou[best_i][best_j]/taille_solution);
+
       //mise_a_jour_liste_tabou_2(courant, position);
       f_avant = f_apres; 
 
