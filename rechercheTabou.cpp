@@ -39,18 +39,11 @@ rechercheTabou::rechercheTabou(int nbiter,int dt,int nv, char* nom_fichier)
 
 rechercheTabou::~rechercheTabou()
 {
-  cout<<1<<endl;
   delete courant;
-    cout<<2<<endl;
-
   for(int i=0; i<taille_solution; i++)
     {
       delete list_tabou[i];
-        cout<<3<<endl;
-
       delete les_distances[i];
-        cout<<4<<endl;
-
     }
 /*  for(int i=0; i<duree_tabou; i++) // COMMENT IF TABOU 2 NOT USED
   {
@@ -59,16 +52,9 @@ rechercheTabou::~rechercheTabou()
     cout<<"5mais"<<endl;
 
   }*/
-
   delete[] list_tabou;
-    cout<<6<<endl;
-  
-//  delete[] list_tabou2;
-    cout<<7<<endl;
-  
-  delete[] les_distances;
-    cout<<8<<endl;
-  
+//  delete[] list_tabou2;  
+  delete[] les_distances;  
 }
 
 void rechercheTabou::constuction_distance(int nv, char* nom_fichier)
@@ -242,10 +228,10 @@ solution* rechercheTabou::optimiser()
             {
 
 	      nb_min_locaux += 1;
-	      cout << "On est dans un minimum local a l'iteration "
+	    /*  cout << "On est dans un minimum local a l'iteration "
 		   << iter_courante-1 << " -> min = " << f_avant
 		   << " km (le + petit min local deja trouve = "
-		   << best_eval << " km)" << endl;
+		   << best_eval << " km)" << endl; */
 	      first = false;
             }
 
