@@ -176,6 +176,7 @@ solution* rechercheTabou::optimiser()
   int ameliore_solution = -1;   // indique l'iteration ou l'on a ameliore la solution
   int f_avant, f_apres;         // valeurs de la fitness avant et apres une iteration
 
+
   // La meilleure solution trouvee (= plus petit minium trouve) a conserver
   solution* best_solution = new solution(taille_solution);
 
@@ -189,8 +190,8 @@ solution* rechercheTabou::optimiser()
   // Tant que le nombre d'iterations limite n'est pas atteint
   for(iter_courante=0; iter_courante<nbiterations; iter_courante++)
     {
-      duree_tabou = Random::aleatoireCeiling(100,1);    // mise à jour de duree tabou pour le RTD
-      cout<< "duree tabou : " << duree_tabou <<endl;
+      duree_tabou = Random::aleatoireCeiling(taille_solution, alpha);    // mise à jour de duree tabou pour le RTD
+     // cout<< "duree tabou : " << duree_tabou <<endl;
       voisinage_2_opt(best_i, best_j);            // La fonction 'voisinage_2_opt' retourne le meilleur
       //   mouvement non tabou; c'est le couple (best_i, best_j)
       courant->inversion_sequence_villes(best_i, best_j);
@@ -234,14 +235,7 @@ solution* rechercheTabou::optimiser()
 
 	  if ((f_avant!=f_apres)&&(!first)) //
 	    first = true;
-
-
-
-			
         }
-
-
-      
 
       // mise a jour de la liste tabou
       // /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ 
@@ -250,10 +244,17 @@ solution* rechercheTabou::optimiser()
       list_tabou[best_i][best_j] = iter_courante+ceil(alpha*0.5*sqrt(nv));  
       //mise_a_jour_liste_tabou_2(courant, position);
       f_avant = f_apres; 
-
+      if(iter_courante%10000 == 0) {
+          cout << "iteration courante : " << iter_courante << endl;
+      }
       // output: index of iteration and the optimal solution so far en C
-      printf("%d\t%d\t%d\n", iter_courante, courant->fitness, best_eval);
+      // printf("%d\t%d\t%d\n", iter_courante, courant->fitness, best_eval);
     }
-  printf("BEST ITERATION = %d ; AND NB LOCAL MINIMA = %d\n", ameliore_solution, nb_min_locaux);
+
+  ofstream myfile;
+  myfile.open ("data.txt", std::ios_base::app);
+  myfile << best_eval << ";" << ameliore_solution << ";" << nb_min_locaux << ";" << nbiterations << ";" <<  alpha << ";" << taille_solution << endl;   // best result; iter number; nb local minima; nb iterations; alpha; nb ville 
+  myfile.close();
+  // printf("BEST SCORE = %d ; BEST ITERATION = %d ; AND NB LOCAL MINIMA = %d\n", best_eval, ameliore_solution, nb_min_locaux);
   return best_solution;
 }
