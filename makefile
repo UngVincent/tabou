@@ -94,8 +94,8 @@ clear :
 # par en remplacement de xx.
 # Le sens est que xx.o s'obtent � partir de xx.cc (la seule d�pendance ici) quand
 # le fichier xx.cc vient d'�tre modifi�
-%.o : %.cc
-	$(COMPILO) $(FLAGS) -o $< $@ 
+%.o : %.cpp
+	$(COMPILO) $(FLAGS) -o $@ $<
 
 #xx.o : xx.cc
 #	$(COMPILO) $(FLAGS) $(INCLUDE_PATH) -o xx.o xx.cc

@@ -63,7 +63,8 @@ int main(int argc, char **argv)
 	cout << endl << "la meilleure solution rencontree est : ";
 	best->afficher();
 
+    cout<<"Not Ok"<<endl;
 	delete best;
-
+    cout<<"Ok"<<endl;
 	return 0;
 }

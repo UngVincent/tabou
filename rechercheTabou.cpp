@@ -28,28 +28,47 @@ rechercheTabou::rechercheTabou(int nbiter,int dt,int nv, char* nom_fichier)
   cout << "La solution initiale aleatoire est   : ";
   courant->afficher();
 
-  list_tabou2 = new int*[duree_tabou];
+  /*list_tabou2 = new int*[duree_tabou];
   for(int i=0; i<duree_tabou; i++)
     {
       list_tabou2[i] = new int[taille_solution];
       for(int j=0; j<taille_solution; j++)
 	list_tabou2[i][j] = -1;
-    }
+    }*/
 }
 
 rechercheTabou::~rechercheTabou()
 {
+  cout<<1<<endl;
   delete courant;
+    cout<<2<<endl;
+
   for(int i=0; i<taille_solution; i++)
     {
       delete list_tabou[i];
+        cout<<3<<endl;
+
       delete les_distances[i];
+        cout<<4<<endl;
+
     }
-  for(int i=0; i<duree_tabou; i++)
+/*  for(int i=0; i<duree_tabou; i++) // COMMENT IF TABOU 2 NOT USED
+  {
+    cout<<5<<endl;
     delete list_tabou2[i];
+    cout<<"5mais"<<endl;
+
+  }*/
+
   delete[] list_tabou;
-  delete[] list_tabou2;
+    cout<<6<<endl;
+  
+//  delete[] list_tabou2;
+    cout<<7<<endl;
+  
   delete[] les_distances;
+    cout<<8<<endl;
+  
 }
 
 void rechercheTabou::constuction_distance(int nv, char* nom_fichier)
@@ -90,6 +109,7 @@ bool rechercheTabou::nonTabou(int i, int j)
     return false;
 }
 
+// non utilise
 bool rechercheTabou::nonTabou2(solution* sol)
 {
   for(int i=0; i<duree_tabou; i++)
@@ -115,6 +135,7 @@ bool rechercheTabou::nonTabou2(solution* sol)
   return true;
 }
 
+// non utilise
 void rechercheTabou::mise_a_jour_liste_tabou_2(solution* sol, int&position)
 {
   if (duree_tabou != 0)
