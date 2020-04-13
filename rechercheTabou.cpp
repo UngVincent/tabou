@@ -238,10 +238,10 @@ solution* rechercheTabou::optimiser()
         }
 
       // mise a jour de la liste tabou
-      // /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ 
       // IMPORTANT il faut un minimum à ajouter, pour ne pas tourner en rond au début, le min des bornes d'aléatoire
-      // /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ 
-      list_tabou[best_i][best_j] = iter_courante+ceil(alpha*0.5*sqrt(nv));  
+      //list_tabou[best_i][best_j] = iter_courante+ceil(alpha*0.5*sqrt(taille_solution));  
+      list_tabou[best_i][best_j] = iter_courante+duree_tabou;  
+      
       //mise_a_jour_liste_tabou_2(courant, position);
       f_avant = f_apres; 
       if(iter_courante%10000 == 0) {
