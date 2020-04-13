@@ -33,8 +33,7 @@ FLAGS= -c -g -Wall -ansi
 OBJ= \
 	main.o \
 	rechercheTabou.o \
-	solution.o
-
+	solution.o 
 
 
 # Apr�s avoir d�fini les macro, on d�finit des cibles. Une cible est une expression

@@ -190,7 +190,7 @@ solution* rechercheTabou::optimiser()
   for(iter_courante=0; iter_courante<nbiterations; iter_courante++)
     {
       duree_tabou = Random::aleatoireCeiling(100,1);    // mise à jour de duree tabou pour le RTD
-      cout<< "duree tabou : " << duree_tabou <<endl
+      cout<< "duree tabou : " << duree_tabou <<endl;
       voisinage_2_opt(best_i, best_j);            // La fonction 'voisinage_2_opt' retourne le meilleur
       //   mouvement non tabou; c'est le couple (best_i, best_j)
       courant->inversion_sequence_villes(best_i, best_j);
