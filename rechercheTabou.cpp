@@ -9,8 +9,9 @@ rechercheTabou::rechercheTabou(int nbiter,int dt,int nv, char* nom_fichier)
 {
   nbiterations    = nbiter;
   iter_courante   = 0;
-  duree_tabou     = dt;
+  duree_tabou     = dt;     // dt n'est pas utilisé pour duree tabou si on utilise du random, mais plutot pour alpha 
   taille_solution = nv;
+  alpha = dt;               // utilisé pour la durée tabou minimale
   
   constuction_distance(taille_solution, nom_fichier);
   courant         = new solution(nv);
@@ -188,6 +189,8 @@ solution* rechercheTabou::optimiser()
   // Tant que le nombre d'iterations limite n'est pas atteint
   for(iter_courante=0; iter_courante<nbiterations; iter_courante++)
     {
+      duree_tabou = Random::aleatoireCeiling(100,1);    // mise à jour de duree tabou pour le RTD
+      cout<< "duree tabou : " << duree_tabou <<endl
       voisinage_2_opt(best_i, best_j);            // La fonction 'voisinage_2_opt' retourne le meilleur
       //   mouvement non tabou; c'est le couple (best_i, best_j)
       courant->inversion_sequence_villes(best_i, best_j);
@@ -241,7 +244,10 @@ solution* rechercheTabou::optimiser()
       
 
       // mise a jour de la liste tabou
-      list_tabou[best_i][best_j] = iter_courante+duree_tabou;
+      // /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ 
+      // IMPORTANT il faut un minimum à ajouter, pour ne pas tourner en rond au début, le min des bornes d'aléatoire
+      // /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ 
+      list_tabou[best_i][best_j] = iter_courante+ceil(alpha*0.5*sqrt(nv));  
       //mise_a_jour_liste_tabou_2(courant, position);
       f_avant = f_apres; 
 

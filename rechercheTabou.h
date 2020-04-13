@@ -11,6 +11,7 @@
 #include "random.h"
 #include "solution.h"
 #include <vector>
+#include <cmath>
 
 // cette classe definie les parametres d'une execution
 // de la recherche tabou ainsi que la procedure principale de recherche

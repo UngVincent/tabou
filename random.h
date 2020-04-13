@@ -3,6 +3,10 @@
 
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
+#include <cmath>
+#include <iostream>
+
 
 class Random{
 public:
@@ -17,6 +21,9 @@ public:
     {
       return(rand()%borne);
     };
+    // retourne une variable aleatoire entiere comprise entre 
+    // ceiling(alpha*0,5*sqrt(n)) et ceiling(alpha*1,5*sqrt(n))
+    static long aleatoireCeiling(long villes);
 };
 
 # endif
