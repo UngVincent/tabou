@@ -36,6 +36,7 @@ algo_tabou
 
 #generated
 data.txt
+dt_data.txt
 /result/*
 
 #betsara script
