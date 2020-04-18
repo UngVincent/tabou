@@ -33,3 +33,10 @@
 
 # executables
 algo_tabou
+
+#generated
+data.txt
+/result/*
+
+#betsara script
+run.sh
