@@ -33,3 +33,7 @@
 
 # executables
 algo_tabou
+
+/result/*
+data.txt
+run.sh
