@@ -33,8 +33,10 @@ rechercheTabou::rechercheTabou(int nbiter, int dt, int nv, char *nom_fichier)
   //   for (int j = 0; j < taille_solution; j++)
   //     it_villes_parcouru[i][j] = 0;
   // }
-  for (int i = 0; i < 100; i++ ){
-    for (int j = 0; j < 100; j++ ){
+  for (int i = 0; i < 100; i++)
+  {
+    for (int j = 0; j < 100; j++)
+    {
       it_villes_parcouru[i][j];
     }
   }
@@ -42,13 +44,13 @@ rechercheTabou::rechercheTabou(int nbiter, int dt, int nv, char *nom_fichier)
   cout << "La solution initiale aleatoire est   : ";
   courant->afficher();
 
-  list_tabou2 = new int*[duree_tabou];
-  for(int i=0; i<duree_tabou; i++)
-    {
-      list_tabou2[i] = new int[taille_solution];
-      for(int j=0; j<taille_solution; j++)
-	list_tabou2[i][j] = -1;
-    }
+  list_tabou2 = new int *[duree_tabou];
+  for (int i = 0; i < duree_tabou; i++)
+  {
+    list_tabou2[i] = new int[taille_solution];
+    for (int j = 0; j < taille_solution; j++)
+      list_tabou2[i][j] = -1;
+  }
 }
 
 rechercheTabou::~rechercheTabou()
@@ -151,37 +153,36 @@ void rechercheTabou::voisinage_2_opt(int &best_i, int &best_j)
   bool tous_tabou = true;
   best_vois = 100000;
   // on selectionne une premiere ville pour le mouvement
-  for(int i=0;i<taille_solution;i++)
+  for (int i = 0; i < taille_solution; i++)
+  {
+    // on selectionne une seconde ville pour le mouvement
+    for (int j = i + 1; j < taille_solution; j++)
     {
-      // on selectionne une seconde ville pour le mouvement
-      for(int j=i+1;j<taille_solution;j++)
-	{
-	  if(   ((i!=0)||(j!=taille_solution-1))
-		&& ((i!=0)||(j!=taille_solution-2)) )
-            {
-	      // on transforme la solution courante vers le voisin
-	      //    grace au mouvement definit par le couple de ville
-	      courant->inversion_sequence_villes(i,j);
-	      // on estime ce voisin
-	      courant->evaluer(les_distances);
-	      // si ce mouvement est non tabou et
-	      // si ce voisin a la meilleure fitness
-	      // alors ce voisin devient le meilleur voisin non tabou
-	      if(nonTabou(i,j) && courant->fitness<best_vois)
-                //if(nonTabou2(courant) && courant->fitness<best_vois)
-                {
-		  best_vois  = courant->fitness;
-		  best_i     = i;
-		  best_j     = j;
-		  tous_tabou = false;
-                }
-	      // on re-transforme ce voisin en la solution courante
-	      courant->inversion_sequence_villes(i,j);
-	      // on re-evalue la solution courante
-	      courant->evaluer(les_distances);
-            }
-	}
+      if (((i != 0) || (j != taille_solution - 1)) && ((i != 0) || (j != taille_solution - 2)))
+      {
+        // on transforme la solution courante vers le voisin
+        //    grace au mouvement definit par le couple de ville
+        courant->inversion_sequence_villes(i, j);
+        // on estime ce voisin
+        courant->evaluer(les_distances);
+        // si ce mouvement est non tabou et
+        // si ce voisin a la meilleure fitness
+        // alors ce voisin devient le meilleur voisin non tabou
+        if (nonTabou(i, j) && courant->fitness < best_vois)
+        //if(nonTabou2(courant) && courant->fitness<best_vois)
+        {
+          best_vois = courant->fitness;
+          best_i = i;
+          best_j = j;
+          tous_tabou = false;
+        }
+        // on re-transforme ce voisin en la solution courante
+        courant->inversion_sequence_villes(i, j);
+        // on re-evalue la solution courante
+        courant->evaluer(les_distances);
+      }
     }
+  }
 }
 
 //proc�dure principale de la recherche
@@ -258,9 +259,20 @@ solution *rechercheTabou::optimiser()
     //mise_a_jour_liste_tabou_2(courant, position);
     f_avant = f_apres;
 
+    if (iter_courante % 10000 == 0)
+    {
+      cout << "iteration courante : " << iter_courante << endl;
+    }
+
     // output: index of iteration and the optimal solution so far en C
-    printf("%d\t%d\t%d\n", iter_courante, courant->fitness, best_eval);
+    //printf("%d\t%d\t%d\n", iter_courante, courant->fitness, best_eval);
   }
+
+  ofstream myfile;
+  myfile.open("data.txt", std::ios_base::app);
+  myfile << best_eval << ";" << ameliore_solution << ";" << nb_min_locaux << ";" << nbiterations << ";" << alpha << ";" << taille_solution << endl; // best result; iter number; nb local minima; nb iterations; alpha; nb ville
+  myfile.close();
+
   printf("BEST ITERATION = %d ; AND NB LOCAL MINIMA = %d\n", ameliore_solution, nb_min_locaux);
   return best_solution;
 }
