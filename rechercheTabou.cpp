@@ -35,22 +35,19 @@ rechercheTabou::rechercheTabou(int nbiter, int dt, int nv, char *nom_fichier)
   // }
   for (int i = 0; i < 100; i++)
   {
-    for (int j = 0; j < 100; j++)
-    {
-      it_villes_parcouru[i][j];
-    }
+    nb_city_used[i] = 0;
   }
 
   cout << "La solution initiale aleatoire est   : ";
   courant->afficher();
 
-  list_tabou2 = new int *[duree_tabou];
-  for (int i = 0; i < duree_tabou; i++)
-  {
-    list_tabou2[i] = new int[taille_solution];
-    for (int j = 0; j < taille_solution; j++)
-      list_tabou2[i][j] = -1;
-  }
+  // list_tabou2 = new int *[duree_tabou];
+  // for (int i = 0; i < duree_tabou; i++)
+  // {
+  //   list_tabou2[i] = new int[taille_solution];
+  //   for (int j = 0; j < taille_solution; j++)
+  //     list_tabou2[i][j] = -1;
+  // }
 }
 
 rechercheTabou::~rechercheTabou()
@@ -206,7 +203,7 @@ solution *rechercheTabou::optimiser()
   // Tant que le nombre d'it�rations limite n'est pas atteint
   for (iter_courante = 0; iter_courante < nbiterations; iter_courante++)
   {
-    duree_tabou = constant_FTD + ceil(alpha * it_villes_parcouru[best_i][best_j] / taille_solution);
+    duree_tabou = constant_FTD + ceil(alpha * nb_city_used[best_i] / taille_solution);
     voisinage_2_opt(best_i, best_j); // La fonction 'voisinage_2_opt' retourne le meilleur
     //   mouvement non tabou; c'est le couple (best_i, best_j)
     courant->inversion_sequence_villes(best_i, best_j);
@@ -253,8 +250,7 @@ solution *rechercheTabou::optimiser()
 
     // mise � jour de la liste tabou
     list_tabou[best_i][best_j] = iter_courante + duree_tabou;
-    // list_tabou[best_i][best_j] = iter_courante+(constant_FTD+alpha*list_tabou[best_i][best_j]/taille_solution);
-    it_villes_parcouru[best_i][best_j] += 1;
+    nb_city_used[best_i] += 1;
 
     //mise_a_jour_liste_tabou_2(courant, position);
     f_avant = f_apres;

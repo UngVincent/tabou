@@ -25,8 +25,8 @@ public:
 	solution *courant;             // solution courante geree par la RechercheTabou
 	int **list_tabou2;             // liste des solutions tabou
 	int **list_tabou;              // liste des durees tabou associees a chaque couple de villes
-	int **les_distances;           // matrice des distances entre les villes	
-	int it_villes_parcouru[100][100];    // iteration villes ij                                                 // le voisinage est au sens voisinage 2-opt
+	int **les_distances;           // matrice des distances entre les villes
+	int nb_city_used[100];		   // the number of times the city is used for a move
     int alpha;                     // multiplicateur pour le RDT et FTD
 	int constant_FTD;				
 
