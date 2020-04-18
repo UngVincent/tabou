@@ -27,6 +27,9 @@ public:
 	int **list_tabou;              // liste des durees tabou associees a chaque couple de villes
 	int **les_distances;           // matrice des distances entre les villes	                                                 // le voisinage est au sens voisinage 2-opt
     int alpha;                     // multiplicateur pour le RDT
+    int dt_it_moyen [100];         // tableau des itérations des durees tabou
+    int dt_val_moyen [100];        // tableau des valeurs des durees tabou
+    
 
 	// CONSTRUCTEURS
 	rechercheTabou(int nbiter, int dt, int nv, char* nom_fichier);  // construction de la rechercheTabou
