@@ -37,7 +37,7 @@ rechercheTabou::rechercheTabou(int nbiter, int dt, int nv, char *nom_fichier)
   {
     for (int j = 0; j < 100; j++)
     {
-      it_villes_parcouru[i][j];
+      it_villes_parcouru[i][j] = 0;
     }
   }
 
@@ -253,6 +253,7 @@ solution *rechercheTabou::optimiser()
 
     // mise � jour de la liste tabou
     list_tabou[best_i][best_j] = iter_courante + duree_tabou;
+    // cout << duree_tabou << endl;
     // list_tabou[best_i][best_j] = iter_courante+(constant_FTD+alpha*list_tabou[best_i][best_j]/taille_solution);
     it_villes_parcouru[best_i][best_j] += 1;
 
