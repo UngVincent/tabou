@@ -28,7 +28,10 @@ public:
 	int **les_distances;           // matrice des distances entre les villes
 	int nb_city_used[100];		   // the number of times the city is used for a move
     int alpha;                     // multiplicateur pour le RDT et FTD
-	int constant_FTD;				
+	int constant_FTD;	
+    int dt_it_moyen [100];         // tableau des itérations des durees tabou
+    int dt_val_moyen [100];        // tableau des valeurs des durees tabou
+			
 
 	// CONSTRUCTEURS
 	rechercheTabou(int nbiter, int dt, int nv, char* nom_fichier);  // construction de la rechercheTabou

@@ -21,6 +21,8 @@ rechercheTabou::rechercheTabou(int nbiter, int dt, int nv, char *nom_fichier)
   list_tabou = new int *[nv];
   for (int i = 0; i < nv; i++)
   {
+    dt_it_moyen[i] = 0;           // intitialisation pour compter les durees tabou moyennes
+    dt_val_moyen[i] = 0;
     list_tabou[i] = new int[nv];
     for (int j = 0; j < nv; j++)
       list_tabou[i][j] = -1;
@@ -209,6 +211,11 @@ solution *rechercheTabou::optimiser()
     courant->inversion_sequence_villes(best_i, best_j);
     //  On d�place la solution courante gr�ce � ce mouvement
 
+    dt_it_moyen[best_i] += 1;        // incremente les tableaux de valeur tabou moyens
+    dt_it_moyen[best_j] += 1;
+    dt_val_moyen[best_i] += duree_tabou;
+    dt_val_moyen[best_j] += duree_tabou;   
+
     courant->ordonner();             // On r�ordonne la solution en commen�ant par 0
     courant->evaluer(les_distances); // On �value la nouvelle solution courante
 
@@ -269,6 +276,11 @@ solution *rechercheTabou::optimiser()
   myfile << best_eval << ";" << ameliore_solution << ";" << nb_min_locaux << ";" << nbiterations << ";" << alpha << ";" << taille_solution << endl; // best result; iter number; nb local minima; nb iterations; alpha; nb ville
   myfile.close();
 
+  myfile.open("dt_data.txt", std::ios_base::app);
+  for (int i = 0; i < 100; ++i){
+      myfile << dt_val_moyen[i] << ";" << dt_it_moyen[i] << ";" << endl;
+  }
+  myfile.close();
   printf("BEST ITERATION = %d ; AND NB LOCAL MINIMA = %d\n", ameliore_solution, nb_min_locaux);
   return best_solution;
 }
