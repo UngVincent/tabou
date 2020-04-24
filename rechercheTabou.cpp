@@ -279,6 +279,16 @@ solution* rechercheTabou::optimiser()
       myfile << dt_val_moyen[i] << ";" << dt_it_moyen[i] << ";" << endl;
   }
   myfile.close();
+
+  myfile.open("best_sol.txt", std::ios_base::app);  //villes
+  for(int i=0;i<best_solution->taille;i++)
+    myfile << best_solution->ville[i] << "-";
+  myfile << "--> " << best_solution->fitness << " km" << endl;
+  
+  for(int i=0;i<best_solution->taille-1;i++)    //distances
+    myfile << les_distances[best_solution->ville[i]][best_solution->ville[i+1]] << ";"; 
+  myfile << les_distances[best_solution->ville[0]][best_solution->ville[best_solution->taille-1]] << endl;
+  myfile.close();
   // printf("BEST SCORE = %d ; BEST ITERATION = %d ; AND NB LOCAL MINIMA = %d\n", best_eval, ameliore_solution, nb_min_locaux);
   return best_solution;
 }
