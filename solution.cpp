@@ -54,6 +54,7 @@ void solution::afficher()
 	cout << "--> " << fitness << " km" << endl;
 }
 
+
 // on impose arbitrairement que la 2ieme ville visitee (ville[1])
 //   ait un n° plus petit que la derniere ville visitee (ville[taille-1])
 //   i.e. : ville[1] > ville[taille-1]

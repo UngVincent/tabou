@@ -289,8 +289,10 @@ solution *rechercheTabou::optimiser()
   myfile.close();
   
   myfile.open("best_sol.txt", std::ios_base::app);
-  myfile << best_solution->fitness << endl;
-  
+  for(int i=0;i<best_solution->taille;i++)
+    myfile << best_solution->ville[i] << "-";
+  myfile << "--> " << best_solution->fitness << " km" << endl;
+    
   for(int i=0;i<best_solution->taille-1;i++)
     myfile << les_distances[best_solution->ville[i]][best_solution->ville[i+1]] << ";"; 
   myfile << les_distances[best_solution->ville[0]][best_solution->ville[best_solution->taille-1]] << endl;
