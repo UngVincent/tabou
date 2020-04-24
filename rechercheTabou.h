@@ -29,6 +29,9 @@ public:
 	int it_villes_parcouru[100][100];    // iteration villes ij                                                 // le voisinage est au sens voisinage 2-opt
     int alpha;                     // multiplicateur pour le RDT et FTD
 	int constant_FTD;				
+    long int dt_it_moyen [100];         // tableau des itérations des durees tabou
+    long int dt_val_moyen [100];        // tableau des valeurs des durees tabou
+
 
 	// CONSTRUCTEURS
 	rechercheTabou(int nbiter, int dt, int nv, char* nom_fichier);  // construction de la rechercheTabou
